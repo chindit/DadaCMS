@@ -10,4 +10,8 @@ namespace Dada\CMSBundle\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getPageItems($page){
+        $start = ($page-1)*$max;
+        $max = $page*$max;
+    }
 }

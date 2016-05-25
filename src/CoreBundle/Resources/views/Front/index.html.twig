@@ -1,0 +1,19 @@
+{% extends 'CoreBundle::main_layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Home{% endblock %}
+
+{% block content %}<h1>DEV PAGE!</h1><p>If you see this, it means <i>DadaCMS</i> is working but is not configurated.</p>
+<p><i>DadaCMS</i> is meant to help you generate your HTML pages, but this bundle is <strong>not</strong> designed to list or render them.</p>
+<p><i>DadaCMS</i> should only be used as an administration tool, not as a rendering tool.</p>
+<p>If you have any question or concern about <i>DadaCMS</i>, please go to <a href="https://github.com/chindit/DadaCMS">https://github.com/chindit/DadaCMS</a></p>
+<p></p>
+    <p><i>DadaCMS</i> works best with <i>FOSUserBundle</i>.  Please read the manual [LINK!] for help</p>
+<p></p>
+<p>Thanks for using DadaCMS</p>
+<p>Chindit</p>
+<h3>Quick links</h3>
+<ul>
+    <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+    <li><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
+    <li><a href="{{ path('dada_cms_homepage') }}">CMS</a></li>
+</ul>{% endblock %}
