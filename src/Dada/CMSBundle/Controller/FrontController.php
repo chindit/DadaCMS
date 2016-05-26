@@ -21,7 +21,6 @@
 namespace Dada\CMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FrontController extends Controller{
@@ -33,7 +32,7 @@ class FrontController extends Controller{
     }
 
     public function viewAction($slug){
-        $em = $this->getDoctrine()->getRepository('DadaCMSBundle:Page');
+        $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
         $page = $em->findOneBySlug($slug);
         if(is_null($page))
             throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
