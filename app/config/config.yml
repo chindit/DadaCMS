@@ -17,7 +17,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
-    csrf_protection: ~
+    csrf_protection: true
     validation:      { enable_annotations: true }
     #serializer:      { enable_annotations: true }
     templating:
@@ -50,6 +50,11 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: CoreBundle\Entity\User
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
 
 # Doctrine Configuration
 doctrine:

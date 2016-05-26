@@ -22,14 +22,21 @@ namespace Dada\CMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FrontController extends Controller{
-    /**
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function indexAction($pagination){
-        $em = $this->getDoctrine()->getManager()->getRepository('Page');
-        $itemsList = $em->getPageItems($pagination);
-        return $this->render('DadaCMSBundle::front.html.twig');
+
+    public function indexAction($page){
+        $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
+        $pagesList = $em->getPageItems($page, $this->getParameter('dadacms.items_page'));dump($pagesList);
+        return $this->render('DadaCMSBundle::front.html.twig', array('pages' => $pagesList));
+    }
+
+    public function viewAction($slug){
+        $em = $this->getDoctrine()->getRepository('DadaCMSBundle:Page');
+        $page = $em->findOneBySlug($slug);
+        if(is_null($page))
+            throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
+        return $this->render('DadaCMSBundle::viewPage.html.twig', array('page' => $page));
     }
 }

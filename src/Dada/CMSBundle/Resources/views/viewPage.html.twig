@@ -1,0 +1,13 @@
+{% extends "DadaCMSBundle::layout.html.twig" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <p>You can <a href="{{ path('dada_cms_modify', {'page': page.id}) }}">modify</a> or <a href="{{ path('dada_cms_delete', {'page': page.id}) }}">delete</a> this page!</p>
+    {% endif %}
+    <hr>
+    Title: {{ page.title }}
+    <hr>
+{{ page.content|raw }}
+    <hr>
+{% endblock %}

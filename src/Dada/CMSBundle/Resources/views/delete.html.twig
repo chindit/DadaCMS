@@ -1,0 +1,7 @@
+{% extends "DadaCMSBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }}Deleting {{ page.title }}{% endblock %}
+{% block content %}
+<h3>Deleting «<i>{{ page.title }}</i>»</h3>
+{{ form(form) }}
+{% endblock %}

@@ -10,8 +10,18 @@ namespace Dada\CMSBundle\Repository;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getPageItems($page){
-        $start = ($page-1)*$max;
-        $max = $page*$max;
+    /**
+     * Returns page $page of Page
+     * @param $page
+     * @param $maxItems
+     * @return array
+     */
+    public function getPageItems($page, $maxItems){
+        $start = ($page-1)*$maxItems;
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.created', 'desc')
+            ->setFirstResult($start)
+            ->setMaxResults($maxItems);
+        return $query->getQuery()->getResult();
     }
 }

@@ -2,15 +2,26 @@
 
 {% block title %}{{ parent() }}Home{% endblock %}
 {% block content %}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 <nav>
-    <h3>Tools</h3>
+    <h3>Tools (admin only)</h3>
     <ul>
-        <li>Create a new page</li>
+        <li><a href="{{ path('dada_cms_create') }}">Create a new page</a></li>
         <li>More to come</li>
     </ul>
 </nav>
 <h3>List of available pages</h3>
 <ul>
-    <li>No pages</li>
+    {% for item in pages %}
+        <li><a href="{{ path('dada_cms_view', {'slug': item.slug }) }}">{{ item.title }}</a></li>
+    {% else %}
+        <li>No pages</li>
+    {% endfor %}
 </ul>
 {% endblock %}

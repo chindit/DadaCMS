@@ -3,3 +3,23 @@ dada_cms_homepage:
     defaults: { _controller: DadaCMSBundle:Front:index, page: 1 }
     requirements:
         page: \d+
+
+dada_cms_create:
+    path:   /new
+    defaults: { _controller: DadaCMSBundle:Editor:create }
+
+dada_cms_view:
+    path: /page/{slug}
+    defaults: { _controller: DadaCMSBundle:Front:view }
+
+dada_cms_modify:
+    path: /modify/{page}
+    defaults: { _controller: DadaCMSBundle:Editor:create }
+    requirements:
+        page: \d+
+
+dada_cms_delete:
+    path: /delete/{page}
+    defaults: { _controller: DadaCMSBundle:Admin:delete }
+    requirements:
+        page: \d+

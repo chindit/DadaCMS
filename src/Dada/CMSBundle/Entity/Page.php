@@ -3,6 +3,7 @@
 namespace Dada\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Page
@@ -42,6 +43,18 @@ class Page
      */
     private $created;
 
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
+     * Page constructor.
+     */
+    public function __construct(){
+        $this->created = new \DateTime();
+    }
 
     /**
      * Get id
@@ -124,5 +137,28 @@ class Page
     {
         return $this->created;
     }
-}
 
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Page
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+}
