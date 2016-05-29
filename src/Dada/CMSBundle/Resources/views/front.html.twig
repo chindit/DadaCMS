@@ -13,6 +13,7 @@
     <h3>Tools (admin only)</h3>
     <ul>
         <li><a href="{{ path('dada_cms_create') }}">Create a new page</a></li>
+        <li><a href="{{ path('dada_cms_create_category') }}">Create a new category</a></li>
         <li>More to come</li>
     </ul>
 </nav>
@@ -24,4 +25,5 @@
         <li>No pages</li>
     {% endfor %}
 </ul>
+    {% include "DadaCMSBundle:Includes:pagination.html.twig" %}
 {% endblock %}

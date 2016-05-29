@@ -23,3 +23,27 @@ dada_cms_delete:
     defaults: { _controller: DadaCMSBundle:Admin:delete }
     requirements:
         page: \d+
+
+dada_cms_history:
+    path: /history/{page}
+    defaults: { _controller: DadaCMSBundle:Admin:history }
+    requirements:
+        page: \d+
+
+dada_cms_view_history:
+    path: /history/{page}/view/{version}
+    defaults: { _controller: DadaCMSBundle:Admin:viewHistory }
+    requirements:
+        page: \d+
+        version: \d+
+
+dada_cms_revert_history:
+    path: /history/{page}/revert/{version}
+    defaults: { _controller: DadaCMSBundle:Admin:revertHistory }
+    requirements:
+        page: \d+
+        version: \d+a
+
+dada_cms_create_category:
+    path: /category/create
+    defaults: { _controller: DadaCMSBundle:Category:create }

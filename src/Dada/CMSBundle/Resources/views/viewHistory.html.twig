@@ -1,0 +1,26 @@
+{% extends "DadaCMSBundle::layout.html.twig" %}
+
+{% block title %}History of {{ page.title }}{% endblock %}
+{% block content %}
+    <h3>History of «<i>{{ page.title }}</i>»</h3>
+    <table>
+        <tr>
+            <th>Action</th>
+            <th>Date</th>
+            <th>View</th>
+            <th>Revert</th>
+        </tr>
+        {% for item in history %}
+            <tr>
+                <td>{{ item.action }}</td>
+                <td>{{ item.loggedAt|date('d/m/Y à H:i:s') }}</td>
+                <td><a href="{{ path('dada_cms_view_history', {'page':page.id, 'version':item.version}) }}">View</a></td>
+                <td><a href="{{ path('dada_cms_revert_history', {'page': page.id, 'version': item.version}) }}">Revert</a></td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No history found for this page</td>
+                </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

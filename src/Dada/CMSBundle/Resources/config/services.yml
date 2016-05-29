@@ -1,4 +1,14 @@
 services:
-#    dada_cms.example:
-#        class: Dada\CMSBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+#Used for Loggable extension
+    extension.listener:
+        class: Dada\CMSBundle\Listener\DoctrineExtensionListener
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    gedmo.listener.loggable:
+            class: Gedmo\Loggable\LoggableListener
+            tags:
+                - { name: doctrine.event_subscriber, connection: default }
+            calls:
+                - [ setAnnotationReader, [ "@annotation_reader" ] ]

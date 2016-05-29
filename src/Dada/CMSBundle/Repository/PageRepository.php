@@ -24,4 +24,20 @@ class PageRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($maxItems);
         return $query->getQuery()->getResult();
     }
+
+    public function findByCategories($id){
+        $query = $this->createQueryBuilder('a');
+        $query->leftJoin('a.categories', 't')
+            ->addSelect('t')
+            ->where('t.id = :id')
+            ->setParameter('id', $id);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getNbPages($maxItems){
+        $query = $this->createQueryBuilder('a');
+        $query->select('COUNT(a.id)');
+        $result = $query->getQuery()->getSingleScalarResult();
+        return ceil(($result/$maxItems));
+    }
 }

@@ -19,4 +19,5 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     #DadaCMS config
-    dadacms.items_page: 10
+    dadacms.items_page: 10 #Number of items by page
+    dadacms.default_role: all #Minimal required role to read a page.  Can be «all», «ROLE_USER» or «ROLE_ADMIN»

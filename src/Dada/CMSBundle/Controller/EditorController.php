@@ -23,11 +23,13 @@ namespace Dada\CMSBundle\Controller;
 use Dada\CMSBundle\Entity\Page;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EditorController extends Controller{
     /**
@@ -45,10 +47,24 @@ class EditorController extends Controller{
                 throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
             }
         }
+        $repo = $em->getRepository('DadaCMSBundle:Category');
 
         $form = $this->createFormBuilder($page)
             ->add('title', TextType::class)
             ->add('content', TextareaType::class, array('required' => false))
+            ->add('categories', EntityType::class, array(
+                'class' => 'DadaCMSBundle:Category',
+                'choice_label' => 'name',
+                'multiple' => true
+            ))
+            ->add('access', ChoiceType::class, array(
+                'choices' => array(
+                    'Everybody' => 'all',
+                    'Registered users' => 'ROLE_USER',
+                    'Admin only' => 'ROLE_ADMIN'
+                ),
+                'preferred_choices' => array($this->getParameter('dadacms.default_role'))
+            ))
             ->add('save', SubmitType::class)
             ->getForm();
 

@@ -1,0 +1,7 @@
+{% extends "DadaCMSBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }}Reverting {{ page.title }}{% endblock %}
+{% block content %}
+    <h3>Reverting «<i>{{ page.title }}</i>»</h3>
+    {{ form(form) }}
+{% endblock %}

@@ -52,4 +52,48 @@ class AdminController extends Controller{
         return $this->render('DadaCMSBundle::delete.html.twig', array('page' => $page, 'form' => $form->createView()));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function historyAction(Page $page){
+        $repo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');//Default logger
+        $logs = $repo->getLogEntries($page);
+        return $this->render('DadaCMSBundle::viewHistory.html.twig', array('page' => $page, 'history' => $logs));
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewHistoryAction(Page $page, $version){
+        $repo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $repo->revert($page, $version);
+        return $this->render('DadaCMSBundle::viewHistoryPage.html.twig', array('page' => $page));
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function revertHistoryAction(Page $page, $version, Request $request){
+        //Alert to avoid CSRF
+        $defaultData = array();
+        $form = $this->createFormBuilder($defaultData)
+            ->add('revert', CheckboxType::class, array('label' => 'Yes, I really want to go back to an older version!', 'required' => false))
+            ->add('submit', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            if($form->getData()['revert']){
+                $em = $this->getDoctrine()->getManager();
+                $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+                $repo->revert($page, $version);
+                $em->persist($page);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('info', 'Page was successfully reverted');
+                return $this->redirectToRoute('dada_cms_homepage');
+            }
+        }
+        return $this->render('DadaCMSBundle::revert.html.twig', array('page' => $page, 'version' => $version, 'form' => $form->createView()));
+    }
+
 }

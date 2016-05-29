@@ -1,0 +1,11 @@
+{% extends "DadaCMSBundle::layout.html.twig" %}
+
+{% block title %}Archived version of {{ page.title }}{% endblock %}
+{% block content %}
+    <div class="bg-warning">You are viewing an <strong>archived</strong> version of this page.  If you want, you can <a href="#">go back to this version</a>.</div>
+    <hr>
+    Title: {{ page.title }}
+    <hr>
+    {{ page.content|raw }}
+    <hr>
+{% endblock %}

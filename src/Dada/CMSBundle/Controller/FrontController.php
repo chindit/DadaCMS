@@ -22,13 +22,15 @@ namespace Dada\CMSBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FrontController extends Controller{
 
     public function indexAction($page){
         $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
-        $pagesList = $em->getPageItems($page, $this->getParameter('dadacms.items_page'));dump($pagesList);
-        return $this->render('DadaCMSBundle::front.html.twig', array('pages' => $pagesList));
+        $pagesList = $em->getPageItems($page, $this->getParameter('dadacms.items_page'));
+        $totalPages = $em->getNbPages($this->getParameter('dadacms.items_page'));
+        return $this->render('DadaCMSBundle::front.html.twig', array('pages' => $pagesList, 'pathName' => 'dada_cms_homepage', 'pagination' => array('current' => $page, 'total' => $totalPages)));
     }
 
     public function viewAction($slug){
@@ -36,6 +38,12 @@ class FrontController extends Controller{
         $page = $em->findOneBySlug($slug);
         if(is_null($page))
             throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
+        //Checking authorizations
+        if($page->getAccess() != 'all'){
+            //If «all» we don't have to check access
+            if(is_null($this->getUser()) || !in_array($page->getAccess(), $this->getUser()->getRoles()))
+                throw new AccessDeniedException('Oh no!  You don\t have enough privileges to view this page! :(');
+        }
         return $this->render('DadaCMSBundle::viewPage.html.twig', array('page' => $page));
     }
 }
