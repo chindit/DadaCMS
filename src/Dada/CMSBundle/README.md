@@ -1,3 +1,0 @@
-# DadaCMS
-
-## More info soon

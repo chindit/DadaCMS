@@ -1,7 +1,0 @@
-homepage:
-    path:     /
-    defaults: { _controller: CoreBundle:Default:index }
-
-view_page:
-    path: /page/{slug}
-    defaults: { _controller: DadaCMSBundle:Front:view }
