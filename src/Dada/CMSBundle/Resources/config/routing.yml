@@ -9,7 +9,7 @@ dada_cms_create:
     defaults: { _controller: DadaCMSBundle:Editor:create }
 
 dada_cms_view:
-    path: /page/{slug}
+    path: /page/{category}/{slug}
     defaults: { _controller: DadaCMSBundle:Front:view }
 
 dada_cms_modify:
@@ -42,7 +42,7 @@ dada_cms_revert_history:
     defaults: { _controller: DadaCMSBundle:Admin:revertHistory }
     requirements:
         page: \d+
-        version: \d+a
+        version: \d+
 
 dada_cms_create_category:
     path: /category/create

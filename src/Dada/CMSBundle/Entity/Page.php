@@ -55,9 +55,9 @@ class Page{
     /**
      * @var \Dada\CMSBundle\Entity\Category
      *
-     * @ORM\ManyToMany(targetEntity="Dada\CMSBundle\Entity\Category", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Dada\CMSBundle\Entity\Category", cascade={"persist"})
      */
-    private $categories;
+    private $category;
 
     /**
      * @var string
@@ -161,47 +161,6 @@ class Page{
     public function getSlug(){
         return $this->slug;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add category
-     *
-     * @param \Dada\CMSBundle\Entity\Category $category
-     *
-     * @return Page
-     */
-    public function addCategory(\Dada\CMSBundle\Entity\Category $category)
-    {
-        $this->categories[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \Dada\CMSBundle\Entity\Category $category
-     */
-    public function removeCategory(\Dada\CMSBundle\Entity\Category $category)
-    {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
 
     /**
      * Set access
@@ -225,5 +184,29 @@ class Page{
     public function getAccess()
     {
         return $this->access;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Dada\CMSBundle\Entity\Category $category
+     *
+     * @return Page
+     */
+    public function setCategory(\Dada\CMSBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Dada\CMSBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

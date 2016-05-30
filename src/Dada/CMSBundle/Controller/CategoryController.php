@@ -28,8 +28,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends Controller{
+
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller used to create a new Category
+     * @param Request $request Form submit
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request){
         $category = new Category();

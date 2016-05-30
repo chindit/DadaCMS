@@ -28,8 +28,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Dada\CMSBundle\Entity\Page;
 
 class AdminController extends Controller{
+
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller for delete action
+     * @param Page $page Page to delete
+     * @param Request $request Delete confirm
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Page $page, Request $request){
         //We show an alert to the admin
@@ -54,6 +60,10 @@ class AdminController extends Controller{
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller for history action
+     * @param Page $page Page which history will be shown
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function historyAction(Page $page){
         $repo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');//Default logger
@@ -63,6 +73,11 @@ class AdminController extends Controller{
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller to view a specific version of $page
+     * @param Page $page
+     * @param $version Version of the history
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewHistoryAction(Page $page, $version){
         $repo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
@@ -72,6 +87,12 @@ class AdminController extends Controller{
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller to set $version of $page as the current version
+     * @param Page $page
+     * @param $version
+     * @param Request $request Reverting confirmation
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function revertHistoryAction(Page $page, $version, Request $request){
         //Alert to avoid CSRF

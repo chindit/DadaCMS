@@ -20,7 +20,7 @@
 <h3>List of available pages</h3>
 <ul>
     {% for item in pages %}
-        <li><a href="{{ path('dada_cms_view', {'slug': item.slug }) }}">{{ item.title }}</a></li>
+        <li><a href="{{ path('dada_cms_view', {'slug': item.slug, 'category': item.category.name }) }}">{{ item.title }}</a></li>
     {% else %}
         <li>No pages</li>
     {% endfor %}

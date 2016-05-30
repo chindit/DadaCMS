@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        dadacms_history: "%dadacms.history%"
 
 # Assetic
 assetic:

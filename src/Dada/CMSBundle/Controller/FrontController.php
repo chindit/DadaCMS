@@ -26,6 +26,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FrontController extends Controller{
 
+    /**
+     * Front controller… doesn't do a lot.  Just showing a bunch of links and last generated pages
+     *
+     * @param $page (int)Page number (to view older pages)
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($page){
         $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
         $pagesList = $em->getPageItems($page, $this->getParameter('dadacms.items_page'));
@@ -33,11 +39,15 @@ class FrontController extends Controller{
         return $this->render('DadaCMSBundle::front.html.twig', array('pages' => $pagesList, 'pathName' => 'dada_cms_homepage', 'pagination' => array('current' => $page, 'total' => $totalPages)));
     }
 
-    public function viewAction($slug){
-        $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
-        $page = $em->findOneBySlug($slug);
-        if(is_null($page))
-            throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
+    /**
+     * Default controller to render a page
+     *
+     * @param $category
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewAction($category, $slug){ //$category is useless
+        $page = $this->getPageBySlug($slug);
         //Checking authorizations
         if($page->getAccess() != 'all'){
             //If «all» we don't have to check access
@@ -46,4 +56,36 @@ class FrontController extends Controller{
         }
         return $this->render('DadaCMSBundle::viewPage.html.twig', array('page' => $page));
     }
+
+
+    /**
+     * ACCESS CONTROLLER
+     * Use this function to get a page easily
+     *
+     * @param $slug
+     * @return mixed
+     */
+    public function getPageBySlug($slug){
+        $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
+        $page = $em->findOneBySlug($slug);
+        if(is_null($page))
+            throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
+        return $page;
+    }
+
+    /**
+     * ACCESS CONTROLLER
+     * Use this function to get a page easily
+     *
+     * @param $id
+     * @return object
+     */
+    public function getPageById($id){
+        $em = $this->getDoctrine()->getManager()->getRepository('DadaCMSBundle:Page');
+        $page = $em->find($id);
+        if(is_null($page))
+            throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
+        return $page;
+    }
+
 }

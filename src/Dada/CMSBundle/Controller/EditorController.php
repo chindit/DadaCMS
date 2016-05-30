@@ -32,30 +32,38 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class EditorController extends Controller{
+
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
+     * Controller user to create/edit a page
+     * @param Request $request Page submission
+     * @param null $page This var contains Page object if it exists (editing)
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request, $page = null){
         $em =  $this->getDoctrine()->getManager();
+
+        //Checking if we're editing or not
         if(is_null($page))
-            $page = new Page();
+            $page = new Page(); //If not, we create a new page
         else{
+            //If yes, we select the page
             $repo = $em->getRepository('DadaCMSBundle:Page');
             $page = $repo->find($page);
             if(is_null($page)){
-                //Page is NON valid
+                //Page is NOT valid
                 throw new NotFoundHttpException('Oh no!  The page you\'re looking for doesn\'t exists :(');
             }
         }
-        $repo = $em->getRepository('DadaCMSBundle:Category');
 
         $form = $this->createFormBuilder($page)
             ->add('title', TextType::class)
             ->add('content', TextareaType::class, array('required' => false))
-            ->add('categories', EntityType::class, array(
+            ->add('category', EntityType::class, array(
                 'class' => 'DadaCMSBundle:Category',
                 'choice_label' => 'name',
-                'multiple' => true
+                //'multiple' => true //Disabled because of routing :( (sad, eh?)
             ))
             ->add('access', ChoiceType::class, array(
                 'choices' => array(
@@ -74,7 +82,7 @@ class EditorController extends Controller{
             $em->persist($page);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Page added!');
-            return $this->redirectToRoute('dada_cms_homepage');
+            return $this->redirectToRoute('dada_cms_homepage'); //Return to homepage after successfull submission
         }
 
 
