@@ -1,5 +1,5 @@
 {
-  "name": "Dada/CMSBundle",
+  "name": "dada-cmsbundle",
   "type": "symfony-bundle",
   "description": "Symfony DadaCMSBundle",
   "keywords": ["CMS"],
