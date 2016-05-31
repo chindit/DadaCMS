@@ -43,6 +43,12 @@ class EditorController extends Controller{
      */
     public function createAction(Request $request, $page = null){
         $em =  $this->getDoctrine()->getManager();
+        
+        $nbCat = $em->getRepository('DadaCMSBundle:Category')->getNbCat();
+        if($nbCat == 0){
+			$this->get('session')->getFlashBag()->add('error', 'No category found.  Please create one first');
+			return $this->redirectToRoute('dada_cms_homepage'); //Return to homepage if no categ
+        }
 
         //Checking if we're editing or not
         if(is_null($page))

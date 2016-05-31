@@ -27,6 +27,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class FrontController extends Controller{
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * 
      * Front controller… doesn't do a lot.  Just showing a bunch of links and last generated pages
      *
      * @param $page (int)Page number (to view older pages)
