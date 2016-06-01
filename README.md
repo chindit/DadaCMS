@@ -7,9 +7,9 @@
 	```"dada/cmsbundle": "dev-master"```
 2. Update your dependencies `composer update`
 3. Load routes by adding this line in *app/config/routing.yml*
-    ```dada_cms:
-    resource: "@DadaCMSBundle/Resources/config/routing.yml"
-    prefix: "/cms"```
+	```dada_cms:
+		resource: "@DadaCMSBundle/Resources/config/routing.yml"
+		prefix: "/cms"```
 4. Register bundle in *app/appKernel.php*
     ```new Dada\CMSBundle\DadaCMSBundle(),```
 5. Update your database schema
