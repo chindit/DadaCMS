@@ -10,4 +10,9 @@ namespace Dada\CMSBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function getNbCat(){
+		$query = $this->createQueryBuilder('a')
+			->select('COUNT(a.id)');
+		return $query->getQuery()->getSingleScalarResult();
+	}
 }
