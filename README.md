@@ -3,19 +3,19 @@
 ## INSTALLATION
 
 ### Composer
-1. Add DadaCMS as a dependency on your *composer.json*
+* Add DadaCMS as a dependency on your *composer.json*
     ```"dada/cmsbundle": "dev-master"```
-2. Update your dependencies `composer update`
-3. Load routes by adding this line in *app/config/routing.yml*
+* Update your dependencies `composer update`
+* Load routes by adding this line in *app/config/routing.yml*
 ```
 dada_cms: 
     resource: "@DadaCMSBundle/Resources/config/routing.yml"
     prefix: "/cms"
 ```
 
-4. Register bundle in *app/appKernel.php*
+* Register bundle in *app/appKernel.php*
     `new Dada\CMSBundle\DadaCMSBundle(),`
-5. DadaCMS **requires** _StofDoctrineExtensionBundle_  Please install it and load it in your _appKernel.php_
+* DadaCMS **requires** _StofDoctrineExtensionBundle_  Please install it and load it in your _appKernel.php_
 	* Add the following lines to your _config.yml_
 ```
 stof_doctrine_extensions:
@@ -33,8 +33,8 @@ mappings:
         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
         is_bundle: false
 ```
-6. Update your database schema
-7. DadaCMS is now operational!  You can access it going to «you-app-path/cms»
+* Update your database schema
+* DadaCMS is now operational!  You can access it going to «you-app-path/cms»
 
 ### WARNING
 DadaCMS requires you te have the «ROLE_ADMIN» role to access the bundle.
