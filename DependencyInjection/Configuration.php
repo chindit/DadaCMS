@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('dada_cms');
         $rootNode->children()
             ->scalarNode('items_page')
 				->defaultValue(10)
