@@ -56,7 +56,7 @@ class FrontController extends Controller{
             if(is_null($this->getUser()) || !in_array($page->getAccess(), $this->getUser()->getRoles()))
                 throw new AccessDeniedException('Oh no!  You don\t have enough privileges to view this page! :(');
         }
-        return $this->render('DadaCMSBundle::viewPage.html.twig', array('page' => $page));
+        return $this->render('DadaCMSBundle::viewPage.html.twig', array('page' => $page, 'dadacms_history' => $this->getParameter('dadacms.history')));
     }
 
 
