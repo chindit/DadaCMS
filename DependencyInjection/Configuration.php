@@ -18,16 +18,18 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('dada_cms')->children()
-            ->variableNode('items_page')
-            ->defaultValue(10)
+        $rootNode->children()
+            ->scalarNode('items_page')
+				->defaultValue(10)
             ->end()
-            ->variableNode('history')
-            ->defaultFalse()
+            ->booleanNode('history')
+				->defaultFalse()
             ->end()
-            ->variableNode('default_role')
-            ->defaultValue('all')
-            ->end();
+            ->scalarNode('default_role')
+				->cannotBeEmpty()
+				->defaultValue('all')
+            ->end()
+		->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
