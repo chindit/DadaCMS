@@ -8,9 +8,16 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    {% stylesheets '@DadaCMSBundle/Resources/public/css/style.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
-    {% endstylesheets %}
+    <style type="text/css">
+        table{
+            border: 1px solid black;
+            margin: auto;
+        }
+        td,th{
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
     <script>tinymce.init({ selector:'textarea' });</script>
     <title>DadaCMS − {% block title %}{% endblock %}</title>
 </head>
