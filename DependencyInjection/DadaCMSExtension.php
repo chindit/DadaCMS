@@ -21,6 +21,10 @@ class DadaCMSExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        
+        $container->setParameter('dadacms.history', $config['dadacms.history']);
+        $container->setParameter('dadacms.items_page', $config['dadacms.items_page']);
+        $container->setParameter('dadacms.default_role', $config['dadacms.default_role']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
