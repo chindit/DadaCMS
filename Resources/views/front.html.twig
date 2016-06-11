@@ -10,12 +10,14 @@
         {% endfor %}
     {% endfor %}
 <nav>
+	{% if is_granted('ROLE_ADMIN') %}
     <h3>Tools (admin only)</h3>
-    <ul>
-        <li><a href="{{ path('dada_cms_create') }}">Create a new page</a></li>
-        <li><a href="{{ path('dada_cms_create_category') }}">Create a new category</a></li>
-        <li>More to come</li>
-    </ul>
+		<ul>
+			<li><a href="{{ path('dada_cms_create') }}">Create a new page</a></li>
+			<li><a href="{{ path('dada_cms_create_category') }}">Create a new category</a></li>
+			<li>More to come</li>
+		</ul>
+    {% endif %}
 </nav>
 <h3>List of available pages</h3>
 <ul>

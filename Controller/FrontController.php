@@ -28,7 +28,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class FrontController extends Controller{
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
      * 
      * Front controller… doesn't do a lot.  Just showing a bunch of links and last generated pages
      *

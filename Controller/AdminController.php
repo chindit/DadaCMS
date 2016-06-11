@@ -82,7 +82,7 @@ class AdminController extends Controller{
     public function viewHistoryAction(Page $page, $version){
         $repo = $this->getDoctrine()->getRepository('Gedmo\Loggable\Entity\LogEntry');
         $repo->revert($page, $version);
-        return $this->render('DadaCMSBundle::viewHistoryPage.html.twig', array('page' => $page));
+        return $this->render('DadaCMSBundle::viewHistoryPage.html.twig', array('page' => $page, 'version' => $version));
     }
 
     /**
